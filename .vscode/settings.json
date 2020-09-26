@@ -44,6 +44,11 @@
 		"thread": "cpp",
 		"typeinfo": "cpp",
 		"condition_variable": "cpp",
-		"mutex": "cpp"
+		"mutex": "cpp",
+		"cstring": "cpp",
+		"iterator": "cpp",
+		"cinttypes": "cpp",
+		"functional": "cpp",
+		"map": "cpp"
 	}
 }

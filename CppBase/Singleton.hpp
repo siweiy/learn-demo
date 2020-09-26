@@ -17,7 +17,7 @@ public:
 	static T* Instance() {
 		if (nullptr == _member) {
 			_member = new T();
-		} return _member; 
+		} return _member;
 	}
 
 	static void Release() {
