@@ -20,4 +20,4 @@ $(TARGETS):%:%.o
 
 .PHONY: clean
 clean:
-	@rm -rf $(TARGETS) $(OBJS)
+	rm -rf $(TARGETS) $(OBJS)
