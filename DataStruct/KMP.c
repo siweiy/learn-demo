@@ -5,7 +5,6 @@
 #define DEBUG
 
 // KMP
-#ifdef DEBUG
 static void __kmp_test(const unsigned char *P, unsigned int *T)
 {
     unsigned int i = 0;
@@ -16,71 +15,73 @@ static void __kmp_test(const unsigned char *P, unsigned int *T)
         i++;
     }
 }
-#endif
 
-static void __kmp_table(const unsigned char *p, unsigned int *T)
+
+void __get_next(int next[], unsigned char *p)
 {
-    unsigned int pos = 2, left = 0;
-    unsigned int len = strlen(p);
+	int left = -1;
+	int right = 0;
 
-    T[0] = -1; // T数组
-    T[1] = 0;  // 第一位必定0
-    while (pos < len) {
-        if (p[pos-1] == p[left]){
-            left = left + 1;
-            T[pos] = left;
-            pos = pos + 1;
-        }
-        else if (left > 0) {
-            left = T[left];
-        } else {
-            T[pos] = 0;
-            pos = pos + 1;
-        }
-    }
+	next[0] = -1;
+	int len = strlen(p);
+
+	while(right < len)
+	{
+		if(left == -1 || p[right] == p[left])
+		{
+			left++;right++;
+			next[right] = left;
+		}
+		else left = next[left];
+ 	}
 }
 
-unsigned int kmp_search(unsigned char *S, unsigned int slen,
-                        unsigned char *W, unsigned int wlen)
+int __index_KMP(unsigned char *src, unsigned char *dst, int pos[])
 {
-    unsigned int m=0, i=0;
-    unsigned int *T;
-    __assert(S && W);
-    
-    T = (unsigned int*)__malloc(wlen * sizeof(unsigned int));
-    __assert(T);
-    __kmp_table(W, wlen, T);
+	int i = 0, j = 0;
+	int num = 0, search_flag = 0;
+	int slen = strlen(src);
+	int dlen = strlen(dst);
+	int next[slen];
+
+	__get_next(next, src);
 
 #ifdef DEBUG
-    __kmp_test(W, wlen, T);
+	__kmp_test(src, next);
 #endif
 
-    while (m+i < slen) {
-        if (W[i] == S[m+i]) {
-            if (i == wlen-1)
-            {
-                __free(T);
-                return m;
-            }
-            i = i+1;
-        }
-        else {
-            m = m+i-T[i];
-            if (T[i] > -1)
-                i = T[i];
-            else
-                i = 0;
-        }
-    }
-    __free(T);
-    return slen;
+	while(i < slen /*&& j < dlen*/) {
+		if(j == -1 || src[i] == dst[j]) {
+			i++;
+			j++;
+		}
+		else j = next[j];	//j回退
+
+		if(j >= dlen) {
+			pos[num++] = (i - dlen);
+			search_flag = 1;
+		}
+	}
+
+	if (search_flag)
+		return num;
+	else
+		return (-1);
 }
 
 int main(int argc, char const *argv[]) {
-	int next[101];
-	const unsigned char *str = "ABC ABCDAB ABCDABCDABDE";
-	__kmp_table(str, next);
-	__kmp_test(str, next);
+
+	int posArr[32] = {0};
+	unsigned char *s = "DAB";
+	unsigned char *str = "ABC ABCDAB ABCDABCDABDE";
+					//     0000123012012301230120
+
+	int num = __index_KMP(str, s, posArr);
+	printf("have %d child\n", num);
+
+	for (int i = 0; i < num; i++) {
+		printf("child[%d] index: %d\n", i, posArr[i]);
+	}
 
 	return 0;
 }
