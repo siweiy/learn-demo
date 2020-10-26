@@ -49,6 +49,9 @@
 		"iterator": "cpp",
 		"cinttypes": "cpp",
 		"functional": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"numeric": "cpp",
+		"random": "cpp",
+		"iomanip": "cpp"
 	}
 }
