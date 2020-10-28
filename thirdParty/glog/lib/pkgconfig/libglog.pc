@@ -1,0 +1,10 @@
+prefix=/home/ysw/transplant/thirdparty/glog/buid/glog
+exec_prefix=/home/ysw/transplant/thirdparty/glog/buid/glog/bin
+libdir=/home/ysw/transplant/thirdparty/glog/buid/glog/lib
+includedir=/home/ysw/transplant/thirdparty/glog/buid/glog/include
+
+Name: libglog
+Description: Google Log (glog) C++ logging framework
+Version: 0.4.0
+Libs: -L${libdir} -lglog
+Cflags: -I${includedir}
