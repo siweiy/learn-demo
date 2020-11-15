@@ -30,3 +30,29 @@ public:
 private:
     struct timeval startTime, endTime;
 };
+
+class Timer
+{
+public:
+    /***
+     * @brief Timer start record
+    */
+    inline void start() { _start = clock(); }
+
+    /***
+     * @brief Timer stop record
+     * @return: type long, Unit Microseconds
+    */
+    inline long end(std::string str = "timer") {
+        _end = clock();
+        double elapsedTime = ((double)(_end - _start)/CLOCKS_PER_SEC);
+
+#ifdef DEBUG
+        std::cout << str << ":" << elapsedTime << "ms" << std::endl;
+#endif
+        return elapsedTime;
+    }
+
+private:
+    clock_t _start, _end;
+};

@@ -52,6 +52,12 @@
 		"map": "cpp",
 		"numeric": "cpp",
 		"random": "cpp",
-		"iomanip": "cpp"
+		"iomanip": "cpp",
+		"list": "cpp",
+		"unordered_set": "cpp",
+		"set": "cpp",
+		"hash_map": "cpp",
+		"hash_set": "cpp",
+		"slist": "cpp"
 	}
 }

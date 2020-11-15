@@ -1,0 +1,10 @@
+prefix=/home/ysw/use_lib/tinyxml2-8.0.0/build/tinyxml2-8.0.0
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: TinyXML2
+Description: simple, small, C++ XML parser
+Version: 8.0.0
+Libs: -L${libdir} -ltinyxml2
+Cflags: -I${includedir}
