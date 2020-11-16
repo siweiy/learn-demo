@@ -1,0 +1,11 @@
+prefix=/home/ysw/use_lib/pugixml-1.10/build/pugixml-1.10
+exec_prefix=${prefix}
+includedir=/home/ysw/use_lib/pugixml-1.10/build/pugixml-1.10/include
+libdir=/home/ysw/use_lib/pugixml-1.10/build/pugixml-1.10/lib
+
+Name: pugixml
+Description: Light-weight, simple and fast XML parser for C++ with XPath support.
+URL: https://pugixml.org/
+Version: 1.10
+Cflags: -I${includedir}
+Libs: -L${libdir} -lpugixml
