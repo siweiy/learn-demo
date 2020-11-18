@@ -6,11 +6,11 @@ SRCS     += $(wildcard *.cpp)
 OBJS     += $(patsubst %.cpp, %.o, $(SRCS))
 TARGETS  += $(SRCS:%.cpp=%)
 
-INCLUDE +=	-I$(PWD)/../../libxml2-2.7.2/include
+INCLUDE +=	-I$(PWD)/../../boost-1.74.0/include
 
-LIB_PATH += -L$(PWD)/../../libxml2-2.7.2/lib
+LIB_PATH += -L$(PWD)/../../boost-1.74.0/lib
 
-LIB_LINK += -lxml2
+LIB_LINK += -lpthread
 
 CFLAGS += -g -Wall -std=c++11
 
@@ -24,7 +24,7 @@ $(TARGETS):%:%.o
 
 .PHONY: clean
 clean:
-	@rm -rf $(TARGETS) $(OBJS) gflags_test.INFO  log-*
+	@rm -rf $(TARGETS) $(OBJS)
 
 D:
-	$(CC) $(demo) -o $(demo) $(INCLUDE) $(LIB_PATH) $(LIB_LINK) $(CFLAGS)
+	gcc $(demo) -o $(demo) $(INCLUDE) $(LIB_PATH) $(LIB_LINK) $(CFLAGS)

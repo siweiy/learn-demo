@@ -4,3 +4,4 @@
 *.ko
 *.obj
 *.elf
+thirdParty/boost-1.74.0

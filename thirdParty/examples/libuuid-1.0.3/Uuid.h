@@ -3,6 +3,7 @@
 
 #include "uuid/uuid.h"
 // #define DEBUG
+namespace Utils{
 
 class UUID
 {
@@ -29,5 +30,7 @@ private:
 
     static char *uuidStr;
 };
+
+}
 
 #endif

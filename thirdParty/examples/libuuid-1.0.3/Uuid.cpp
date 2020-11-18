@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 
+namespace Utils{
 char *UUID::uuidStr = new char[37];
 
 char* UUID::Generate(uuid_t *uuid) {
@@ -88,6 +89,16 @@ int UUID::Test(const char * uuidStr, int isValid)
 #endif
         return -1;
     }
+
+    return 0;
+}
+}
+
+int main(int argc, char const *argv[])
+{
+    std::cout << Utils::UUID::Generate() << std::endl;
+    std::cout << Utils::UUID::GenerateLower() << std::endl;
+    std::cout << Utils::UUID::GenerateUpper() << std::endl;
 
     return 0;
 }
