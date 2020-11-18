@@ -107,7 +107,7 @@ void test5() {
     boost::signals2::signal<int (int)> s; 
     {
         // 作用域连接：在析构时自动释放连接
-        boost::signals2::scoped_connection c = s.connect(func); 
+        boost::signals2::scoped_connection c = s.connect(func);
     } 
     s(1);
 }
@@ -123,7 +123,7 @@ void test6() {
 
     boost::signals2::signal<void ()> s;
     {
-        std::auto_ptr<world> w(new world()); 
+        std::shared_ptr<world> w(new world()); 
         s.connect(boost::bind(&world::hello, w.get())); 
     }
     // 继承boost::signals2::trackable， 以确保不会试图调用已销毁对象之上的方法
