@@ -8,9 +8,9 @@ TARGETS  += $(SRCS:%.cpp=%)
 
 INCLUDE +=	-I$(PWD)/../../boost-1.74.0/include
 
-LIB_PATH += -L$(PWD)/../../boost-1.74.0/lib
+LIB_PATH = -L$(PWD)/../../boost-1.74.0/lib
 
-LIB_LINK += -lpthread
+LIB_LINK += -lpthread -lboost_regex -lboost_thread
 
 CFLAGS += -g -Wall -std=c++11
 

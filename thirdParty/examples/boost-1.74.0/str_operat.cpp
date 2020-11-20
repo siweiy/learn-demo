@@ -1,3 +1,7 @@
+/*
+    字符串操作
+*/
+
 #include <iostream>
 #include <locale>
 #include <clocale>
@@ -67,9 +71,10 @@ void test5() {
     std::cout << boost::algorithm::join(v, "++") << std::endl;
 }
 
+
 int main(int argc, char const *argv[])
 {
-    test5();
+    // test5();
 
     return 0;
 }
