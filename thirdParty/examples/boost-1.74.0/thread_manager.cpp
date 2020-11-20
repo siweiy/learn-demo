@@ -149,11 +149,64 @@ namespace cond_thread{
     }
 }
 
+// 线程本地存储（TLS）
+namespace TLS_thread{
+
+    void init_number_generator() { 
+#if 1
+        static bool done = false; 
+        if (!done) { 
+            std::cout << "111111" << std::endl; 
+            done = true; 
+            std::srand(static_cast<unsigned int>(std::time(0))); 
+        } 
+#else
+        static boost::thread_specific_ptr<bool> tls; 
+        // 使用 reset() 方法，可以把它的地址保存到 tls 里面。 
+        // 在给出的例子中，会动态地分配一个 bool 型的变量，由 new 返回它的地址，并保存到 tls 里。 
+        // 为了避免每次调用 init_number_generator() 都设置 tls ，
+        // 它会通过 get() 函数检查是否已经保存了一个地址。
+        if (!tls.get()) {
+            tls.reset(new bool(false)); 
+        }
+        if (!*tls) { 
+            std::cout << "111111" << std::endl; 
+            *tls = true; 
+            std::srand(static_cast<unsigned int>(std::time(0))); 
+        } 
+#endif
+    } 
+
+    boost::mutex mutex; 
+
+    void random_number_generator() { 
+        init_number_generator(); 
+        int i = std::rand(); 
+        boost::lock_guard<boost::mutex> lock(mutex); 
+        std::cout << i << std::endl; 
+        // boost::this_thread::sleep(boost::posix_time::seconds(2));
+    } 
+
+    void test1() { 
+        boost::thread t[3]; 
+
+        for (int i = 0; i < 3; ++i) {
+            boost::this_thread::sleep(boost::posix_time::seconds(1));
+            t[i] = boost::thread(random_number_generator); 
+        }
+
+        for (int i = 0; i < 3; ++i) {
+            t[i].join(); 
+        }
+    } 
+}
+
 int main(int argc, char const *argv[])
 {
     // Thread::test2();
     // sync_thread::test2();
-    cond_thread::test1();
+    // cond_thread::test1();
+    TLS_thread::test1();
 
     return 0;
 }
