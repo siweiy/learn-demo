@@ -1,0 +1,14 @@
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/install/strip.dir
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/edit_cache.dir
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/demo.dir
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/install.dir
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/rebuild_cache.dir
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/list_install_components.dir
+/home/ysw/test/cmake_test/multi_opt/build/CMakeFiles/install/local.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/edit_cache.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/install/strip.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/calc.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/rebuild_cache.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/list_install_components.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/install/local.dir
+/home/ysw/test/cmake_test/multi_opt/build/math/CMakeFiles/install.dir

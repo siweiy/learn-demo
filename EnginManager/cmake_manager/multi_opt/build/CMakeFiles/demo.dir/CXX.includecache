@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../math/calc.h
+iostream
+-
+
+/home/ysw/test/cmake_test/multi_opt/config.h
+
+/home/ysw/test/cmake_test/multi_opt/main.cpp
+iostream
+-
+config.h
+/home/ysw/test/cmake_test/multi_opt/config.h
+calc.h
+/home/ysw/test/cmake_test/multi_opt/calc.h
+

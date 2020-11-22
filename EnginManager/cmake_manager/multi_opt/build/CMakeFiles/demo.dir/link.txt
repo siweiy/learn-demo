@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -Wall -g -ggdb  -rdynamic CMakeFiles/demo.dir/main.cpp.o  -o demo -Wl,-rpath,/home/ysw/test/cmake_test/multi_opt/build/math: math/libcalc.so 

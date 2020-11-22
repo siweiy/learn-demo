@@ -1,0 +1,72 @@
+1.使用前安装scons
+命令：
+	scons: 执行SConstruct中脚本
+    scons -c  clean
+    scons -Q  只显示编译信息，去除多余的打印信息
+    scons -Q  --implicit-cache hello 	保存依赖关系
+              --implicit-deps-changed   强制更新依赖关系
+              --implicit-deps-unchanged 强制使用原先的依赖关系，即使已经改变
+
+2.在源文件目录中创建一个SConstruct的文件，并在其中添加如下内容
+
+执行文件:
+1）Program('hello.c') //单文件编译,根据系统自动生成(hello.exe on Windows; hello on POSIX)
+2）Program(['hello.c', 'file1.c', 'file2.c']) 编译多个文件，Output文件名以第一个文件命名
+	2.1）src = ["hello.c","foo.c"];Program(src)
+3）Program(source = "hello.c",target = "hello")
+4）Program(target = "hello" , source = "hello.c")
+5）Program('testPro1', Glob('*.cpp')) 或者 Program('程序名', Split('程序文件序列 空格分隔'))
+
+目标文件:
+	Object('hello.c') 编译hello.c目标文件，根据系统自动生成(hello.obj on Windows; hello.o on POSIX)
+
+保存后执行scons命令
+
+3.编译的时候想添加上-g -O2 -Wall参数
+使用环境变量
+env=Environment(CCFLAGS = ['-g','-O3','-Wall'])  
+
+生成程序的时候使用env.Program()即可，例如：
+env=Environment(CCFLAGS = ['-g','-O3','-Wall'])  
+env.Program('程序名', Glob('*.cpp'))
+
+4.编译生成静态库
+
+方法1：使用Library关键字
+Library('库名', Split('程序文件序列,空格分隔') 或 Library('库名', Glob('*.cpp'))
+
+方法2：使用显示关键字StaticLibrary
+StaticLibrary('库名', Split('程序文件序列,空格分隔')) 或 StaticLibrary('库名', Glob('*.cpp'))
+说明：库名不要前面的lib和后缀，如库libtestdota.a生成时的库名为testdota
+
+5.编译生成动态库
+使用关键字SharedLibrary
+SharedLibrary('库名', Split('程序文件序列,空格分隔')) 或 SharedLibrary('库名', Glob('*.cpp'))
+
+6.程序或库中引用已有的库
+
+使用关键字LIBS和LIBPATH
+1）LIBS后跟程序需要引用的库名
+2）LIBPATH后跟程序引用库的时候所需的库文件路径
+如：
+    Program('testPro','prog.c', LIBS = ['m','m2'], LIBPATH = ['/usr/lib', '/usr/local/lib'])
+
+7.指定程序编译过程中需要查找的头文件路径
+
+使用关键字CPPPATH
+例如：
+	Program('hello','hello.c', CPPPATH = ['include/PATH1', '/home/project/PATH2'])
+
+8.SourceSignatures：判断源文件是否修改
+1）SourceSignatures('MD5')     		根据内容是否改变，默认方式
+2）SourceSignatures('timestamp') 	根据修改时间
+
+argetSignatures：判断目标文件是否改变
+1）TargetSignatures('build')   根据编译结果
+2TargetSignatures('content')  根据文件内容，如果只是加了句注释，将不会被重新编译
+
+9.Ignore：忽略依赖关系
+Ignore(hello, 'hello.h')  忽略某个依赖关系
+
+Depends：明确依赖关系
+Depends(hello, 'other_file') 明确依赖关系 

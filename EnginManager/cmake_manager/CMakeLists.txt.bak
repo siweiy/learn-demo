@@ -1,0 +1,27 @@
+cmake_minimum_required (VERSION 2.8)
+
+INCLUDE_DIRECTORIES(../../thirdparty/comm)
+
+# 找库
+FIND_LIBRARY(COMM_LIB comm ../../thirdparty/comm/lib NO_DEFAULT_PATH)
+FIND_LIBRARY(RUNTIME_LIB rt /usr/lib  /usr/local/lib NO_DEFAULT_PATH)
+
+# 连接库
+link_libraries(${COMM_LIB} ${RUNTIME_LIB})
+
+#
+ADD_DEFINITIONS(
+-O3 -g -W -Wall
+-Wunused-variable -Wunused-parameter -Wunused-function -Wunused
+-Wno-deprecated -Woverloaded-virtual -Wwrite-strings
+-D__WUR= -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DTIXML_USE_STL
+)
+
+aux_source_directory(. DIR_LIB_SRCS)
+add_library (lib_demo SHARED ${DIR_LIB_SRCS})
+
+link_libraries(lib_demo)
+add_executable(demo main.cpp)
+
+# link library in static mode
+target_link_libraries(demo libuuid.a)

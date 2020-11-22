@@ -1,0 +1,56 @@
+
+target_file = 'module_test1'
+compile_tool = 'g++'
+
+# 头文件路径
+inc_path = ['inc']
+inc_path += ['../module1/inc']
+inc_path += ['../module2/inc']
+
+# 源文件
+src = Glob('*.cpp')
+src += Glob('src/*.cpp')
+
+# 宏定义
+defines = ['MAIN_DEF']
+
+# 编译附加选项
+ccflags = ['-g','-O3','-Wall']
+
+# 第三方库
+lib_path = []
+libs = ['pthread']
+
+# 环境设置
+env=Environment(
+	CXX = compile_tool
+)
+
+for flag in ccflags:
+	env.AppendUnique(CPPFLAGS=[flag])
+
+for path in inc_path:
+	env.AppendUnique(CPPPATH=[path])
+
+for deb in defines:
+	env.AppendUnique(CPPDEFINES=[deb])
+
+for path in lib_path:
+	env.AppendUnique(LIBPATH=[path])
+
+for lib in libs:
+	env.AppendUnique(LIBS=[lib])
+
+# 定义了编译时的显示格式，若不定义则编译选项非常长，冗余信息非常多，不利于查找有用的错误和警告。
+env.Append(CCCOMSTR="CC $SOURCES")
+env.Append(LINKCOMSTR="LINK $TARGET")
+
+# duplicate=0选项是防止源文件被多余地复制到build文件夹下
+objs = SConscript('../module1/SConscript',variant_dir='sdk/module1', duplicate=0)
+objs += SConscript('../module2/SConscript',variant_dir='sdk/module2', duplicate=0)
+
+objs += env.Object(src)
+
+env.Program(target = target_file, source=objs)
+
+

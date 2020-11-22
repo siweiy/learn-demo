@@ -1,0 +1,6 @@
+#cmakedefine USE_MYMATH
+#cmakedefine DEBUG
+
+// 版本号
+#define VERSION_MAJOR @VERSION_MAJOR@
+#define VERSION_MINOR @VERSION_MINOR@

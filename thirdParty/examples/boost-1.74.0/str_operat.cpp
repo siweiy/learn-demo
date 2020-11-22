@@ -8,6 +8,7 @@
 #include <cstring>
 #include <vector>
 #include "boost/algorithm/string.hpp"
+#include "boost/algorithm/string/regex.hpp"
 
 // 全局区域设置可以使用类 std::locale 中的静态函数 global() 改变
 void test1() {
@@ -66,15 +67,74 @@ void test4() {
 void test5() {
     std::vector<std::string> v; 
     v.push_back("Boris"); 
-    v.push_back("Schäling"); 
+    v.push_back("Schäling");
+    v.push_back("test"); 
     std::cout << boost::algorithm::join(v, " ") << std::endl;
     std::cout << boost::algorithm::join(v, "++") << std::endl;
 }
 
+<<<<<<< Updated upstream
 
 int main(int argc, char const *argv[])
 {
     // test5();
+=======
+void test6() {
+    
+    std::string s = "Boris Schäling"; 
+    std::cout << boost::algorithm::replace_first_copy(s, "B", "D") << std::endl; 
+    std::cout << boost::algorithm::replace_nth_copy(s, "B", 0, "D") << std::endl; 
+    std::cout << boost::algorithm::replace_last_copy(s, "B", "D") << std::endl; 
+    std::cout << boost::algorithm::replace_all_copy(s, "B", "D") << std::endl; 
+    std::cout << boost::algorithm::replace_head_copy(s, 5, "Doris") << std::endl; 
+    std::cout << boost::algorithm::replace_tail_copy(s, 8, "Becker") << std::endl; 
+}
+
+void test7() {
+
+    // std::string s = "\t Boris Schäling \t"; 
+    // std::cout << "." << boost::algorithm::trim_left_copy(s) << "." << std::endl; 
+    // std::cout << "." << boost::algorithm::trim_right_copy(s) << "." << std::endl; 
+    // std::cout << "." << boost::algorithm::trim_copy(s) << "." << std::endl;
+
+    std::string s = "--Boris Schäling--"; 
+    std::cout << "." << boost::algorithm::trim_left_copy_if(s, boost::algorithm::is_any_of("-")) << "." << std::endl; 
+    std::cout << "." << boost::algorithm::trim_right_copy_if(s, boost::algorithm::is_any_of("-")) << "." << std::endl; 
+    std::cout << "." << boost::algorithm::trim_copy_if(s, boost::algorithm::is_any_of("-")) << "." << std::endl;
+
+    std::string str = "123456789Boris Schäling123456789"; 
+    std::cout << "." << boost::algorithm::trim_left_copy_if(str, boost::algorithm::is_digit()) << "." << std::endl; 
+    std::cout << "." << boost::algorithm::trim_right_copy_if(str, boost::algorithm::is_digit()) << "." << std::endl; 
+    std::cout << "." << boost::algorithm::trim_copy_if(str, boost::algorithm::is_digit()) << "." << std::endl;
+}
+
+void test8() {
+
+    std::string s = "Boris Schäling"; 
+    std::cout << boost::algorithm::starts_with(s, "Boris") << std::endl; 
+    std::cout << boost::algorithm::ends_with(s, "Schäling") << std::endl; 
+    std::cout << boost::algorithm::contains(s, "is") << std::endl; 
+    std::cout << boost::algorithm::lexicographical_compare(s, "Boris") << std::endl; // 0表示字串存在与s
+}
+
+void test9() {
+    std::string s = "Boris Schäling"; 
+    std::vector<std::string> v; 
+    boost::algorithm::split(v, s, boost::algorithm::is_space()); // 以空格为裁剪依据，得到《Boris》《Schäling》
+    std::cout << v.size() << std::endl; 
+}
+
+void test10() {
+
+    std::string s = "Boris Schäling"; 
+    boost::iterator_range<std::string::iterator> r = boost::algorithm::find_regex(s, boost::regex("\\w\\s\\w")); 
+    std::cout << r << std::endl; 
+}
+
+int main(int argc, char const *argv[])
+{
+    test10();
+>>>>>>> Stashed changes
 
     return 0;
 }

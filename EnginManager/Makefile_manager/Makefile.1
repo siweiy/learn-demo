@@ -1,0 +1,71 @@
+
+TARGET = AiBox.app 
+
+##### 对应板子开启定义
+# HISI_ARM=yes
+CAMBRIAN=yes
+
+
+ifdef HISI_ARM
+$(warning "**************************************************************")
+$(warning "          compiler：海思3559a , ARM                            ")
+$(warning "**************************************************************")
+CC = aarch64-himix100-linux-gcc
+CXX = aarch64-himix100-linux-g++
+else
+ifdef CAMBRIAN
+$(warning "**************************************************************")
+$(warning "          compiler：寒武纪 , ARM                               ")
+$(warning "**************************************************************")
+CC = aarch64-linux-gnu-gcc
+CXX = aarch64-linux-gnu-g++
+else
+$(warning "**************************************************************")
+$(warning "                    compiler：g++ , ubuntu                    ")
+$(warning "**************************************************************")
+CC = gcc
+CXX = g++
+endif
+endif
+
+CPP_SRC := $(wildcard *.cpp src/*/*.cpp) 
+CPP_OBJ := $(patsubst %.cpp, %.o, $(CPP_SRC))
+
+INC_CXX := -I$(PWD)/include
+
+# 编译器选择
+ifeq ($(CXX),aarch64-himix100-linux-g++)
+
+LIB_PATH := -L./lib/net
+LIB_CXX := ./lib/fastcgi/libfcgi.a
+
+else
+ifeq ($(CXX),g++)
+
+LIB_PATH := -L./ubuntu_lib
+LIB_CXX := ./ubuntu_lib/libfcgi.a
+
+else
+ifeq ($(CXX),aarch64-linux-gnu-g++)
+
+LIB_PATH := -L$(PWD)/aarch64-linux-gnu-lib/cJSON/lib/
+LIB_CXX := -lfcgi -lcjson -lsqlite3 -lbase -lnet -luuid
+
+endif
+endif
+endif
+
+
+FLAGS = -O2 -Wall -lpthread -ldl -std=c++11
+
+all:$(TARGET)
+$(TARGET):$(CPP_OBJ)
+	$(CXX) $^ -o $@ $(LIB_PATH) $(LIB_CXX) $(FLAGS)
+	# @rm $(CPP_OBJ) -f
+
+%.o:%.cpp
+	$(CXX) -c $< -o $@ $(INC_CXX)
+
+.PHONY:clean
+clean:
+	-rm  -f $(CPP_OBJ) $(TARGET)

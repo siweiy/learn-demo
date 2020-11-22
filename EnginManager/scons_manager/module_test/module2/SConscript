@@ -1,0 +1,19 @@
+src = Glob('src/*.cpp')
+ 
+inc_path = ['inc']
+ 
+ 
+defines = ['MODULE2_DEF']
+ccflags = []
+ 
+   
+env = Environment () 
+  
+env.Append(CPPPATH=inc_path)
+env.Append(CPPDEFINES=defines)
+env.Append(CCCOMSTR="CC $SOURCES")
+SharedLibrary('module2', Glob('src/*.cpp'))
+
+obj=env.Object(src)  
+ 
+Return('obj')
