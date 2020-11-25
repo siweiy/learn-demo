@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    int wd = inotify_add_watch(inotifyFd, "./tmp", IN_ALL_EVENTS);
+    int wd = inotify_add_watch(inotifyFd, "a.out", IN_ALL_EVENTS);
     if (wd < 0) {
         printf("inotify_add_watch error\n");
         return -1;
@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     }
 
     inotify_rm_watch(inotifyFd, wd);
+
     return 0;
 }
 

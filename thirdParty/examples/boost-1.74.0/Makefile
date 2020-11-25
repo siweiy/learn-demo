@@ -10,11 +10,7 @@ INCLUDE +=	-I$(PWD)/../../boost-1.74.0/include
 
 LIB_PATH = -L$(PWD)/../../boost-1.74.0/lib
 
-<<<<<<< Updated upstream
-LIB_LINK += -lpthread -lboost_regex -lboost_thread
-=======
-LIB_LINK += -lboost_regex -lpthread
->>>>>>> Stashed changes
+LIB_LINK += -lpthread -lboost_regex -lboost_thread -lrt -lboost_filesystem -lboost_serialization
 
 CFLAGS += -g -Wall -std=c++11
 

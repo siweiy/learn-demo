@@ -15,6 +15,7 @@ namespace socket_asio
     {
         if (!ec)
         {
+            std::cout << "333333333" << std::endl;
             std::cout << std::string(buffer.data(), bytes_transferred) << std::endl;
             sock.async_read_some(boost::asio::buffer(buffer), read_handler);
         }
@@ -24,6 +25,7 @@ namespace socket_asio
     {
         if (!ec)
         {
+            std::cout << "22222" << std::endl;
             boost::asio::write(sock, boost::asio::buffer("GET / HTTP 1.1\r\nHost: highscore.de\r\n\r\n"));
             sock.async_read_some(boost::asio::buffer(buffer), read_handler);
         }
@@ -33,6 +35,7 @@ namespace socket_asio
     {
         if (!ec)
         {
+            std::cout << "11111" << std::endl;
             sock.async_connect(*it, connect_handler);
         }
     }

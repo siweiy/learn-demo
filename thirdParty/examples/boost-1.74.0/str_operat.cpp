@@ -73,12 +73,6 @@ void test5() {
     std::cout << boost::algorithm::join(v, "++") << std::endl;
 }
 
-<<<<<<< Updated upstream
-
-int main(int argc, char const *argv[])
-{
-    // test5();
-=======
 void test6() {
     
     std::string s = "Boris Schäling"; 
@@ -134,7 +128,6 @@ void test10() {
 int main(int argc, char const *argv[])
 {
     test10();
->>>>>>> Stashed changes
 
     return 0;
 }

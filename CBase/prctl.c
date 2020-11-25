@@ -27,15 +27,19 @@ int main(int argc, char *argv[])
 {
     // 设置/获取进程名并根据进程名获取进程ID,不能在同个进程直接获取
     //*******************************************************
-    prctl(PR_SET_NAME, "test_proess");
+    prctl(PR_SET_NAME, "listener_proess", NULL, NULL, NULL);
 
-    char buf[100] = {0};
-    prctl(PR_GET_NAME, buf);
-	printf("buf = %s\n", buf);
+    // char buf[100] = {0};
+    // prctl(PR_GET_NAME, buf);
+	// printf("buf = %s\n", buf);
 
-    pid_t process_pid = getProcessPidByName("code");
+    pid_t process_pid = getProcessPidByName("a.out");
 	printf("pid = %d\n", process_pid);
     //*******************************************************
+
+    while (1){
+        sleep(1);
+    };
 
     return 0;
 }

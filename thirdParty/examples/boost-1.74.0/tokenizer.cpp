@@ -29,7 +29,7 @@ void test2() {
     boost::char_separator<char> sep(" ", "+", boost::keep_empty_tokens); 
     tokenizer tok(s, sep); 
     for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it) {
-        std::cout << *it << std::endl; 
+        std::cout << *it << std::endl;
     }
 }
 

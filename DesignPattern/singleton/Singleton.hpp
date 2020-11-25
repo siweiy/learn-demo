@@ -1,6 +1,14 @@
+/*
+ * Copyright (CPP) 2019-2020 ----
+ */
+/******************************************************************************
+ * @file     Singleton.hpp
+ * @brief    Defines Singleton APIs
+ * @version  V1.0
+ * @date     24. September 2020
+ * @usage    Singleton<class_name>::Instance()->func()
+ ******************************************************************************/
 #pragma once
-
-/** Singleton template class ×*/
 
 template<class T>
 class Singleton
