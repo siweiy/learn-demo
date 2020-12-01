@@ -1,0 +1,10 @@
+prefix=/home/ysw/transplant/hiredis-1.0.0/hiredis-1.0.0
+exec_prefix=${prefix}
+libdir=/home/ysw/transplant/hiredis-1.0.0/hiredis-1.0.0/lib
+includedir=/home/ysw/transplant/hiredis-1.0.0/hiredis-1.0.0/include/hiredis
+
+Name: hiredis
+Description: Minimalistic C client library for Redis.
+Version: 1.0.0
+Libs: -L${libdir} -lhiredis
+Cflags: -I${includedir} -D_FILE_OFFSET_BITS=64
