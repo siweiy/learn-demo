@@ -9,7 +9,8 @@ public:
 
 int main(int argc, char const *argv[])
 {
-    Singleton<Test>::Instance()->run();
+    Singleton<Test>::getInstance()->run();
+    Singleton<Test>::releaseSingletonAddress();
 
     return 0;
 }

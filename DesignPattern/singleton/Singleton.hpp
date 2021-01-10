@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream:DesignPattern/singleton/Singleton.hpp
+
 /*
  * Copyright (CPP) 2019-2020 ----
  */
@@ -9,15 +9,13 @@
  * @date     24. September 2020
  * @usage    Singleton<class_name>::Instance()->func()
  ******************************************************************************/
-#pragma once
 
-=======
 #ifndef _SINGLETON_HPP_
 #define _SINGLETON_HPP_
 
 /** Singleton template class ×*/
 #define SINGLETON_INDEX 0
-#define DEBUG_PRINT 1
+// #define DEBUG_PRINT
 
 #ifndef DEBUG_PRINT
 #include <iostream>
@@ -30,8 +28,7 @@
 #include <chrono>
 #include <atomic>
 
-// 4、C++ 11版本之后的跨平台实现 -- 线程安全
->>>>>>> Stashed changes:Utils/Singleton.hpp
+// C++ 11版本之后的跨平台实现 -- 线程安全
 template<class T>
 class Singleton {
 private:
