@@ -1,30 +1,24 @@
 #include "MySQL.h"
 
-MySQL::MySQL(MySQL_Info &info) : IMySQL(info)
-{
-}
-
-MySQL::~MySQL()
-{
-    mysql_library_end();
-}
-
-void MySQL::initMysqlInfo()
-{
+MySQL::MySQL(MySQL_Info &info) 
+    : MySqlAbstract(info) {
+    
     if (0 != mysql_library_init(0, NULL, NULL))
     {
         std::cout << "mysql_library_init() failed" << std::endl;
     }
 }
 
-bool MySQL::connectToMysql()
-{
+MySQL::~MySQL() {
+    mysql_library_end();
+}
+
+bool MySQL::connectToMysql() {
     //初始化数据结构
     mysql_init(m_bMysql.get());
 
     //在连接数据库之前，设置额外的连接选项
-    if (0 != mysql_options(m_bMysql.get(), MYSQL_SET_CHARSET_NAME, "gbk"))
-    {
+    if (0 != mysql_options(m_bMysql.get(), MYSQL_SET_CHARSET_NAME, "gbk")) {
         std::cout << "mysql_options() failed" << std::endl;
     }
 
@@ -33,13 +27,10 @@ bool MySQL::connectToMysql()
                                                      m_bInfo.user.c_str(),
                                                      m_bInfo.pswd.c_str(),
                                                      m_bInfo.database.c_str(),
-                                                     m_bInfo.port, NULL, 0))
-    {
+                                                     m_bInfo.port, NULL, 0)) {
         std::cout << "Connect_to_Mysql Success" << std::endl;
         return true;
-    }
-    else
-    {
+    } else {
         std::cout << "Connect_to_Mysql Failed" << std::endl;
         std::cout << mysql_error(m_bMysql.get()) << std::endl;
         return false;
@@ -47,13 +38,11 @@ bool MySQL::connectToMysql()
 }
 
 // select 视情况封装
-void MySQL::operateMysqlSelect(const char *Mysql_Sentence)
-{
-    if (0 == mysql_query(m_bMysql.get(), Mysql_Sentence))
-    {
+void MySQL::operateMysqlSelect(const char *Mysql_Sentence) {
+
+    if (0 == mysql_query(m_bMysql.get(), Mysql_Sentence)) {
         // 返回0表示插入、更新等操作
-        if (mysql_field_count(m_bMysql.get()) != 0)
-        {
+        if (mysql_field_count(m_bMysql.get()) != 0) {
             MYSQL_RES *result = NULL;
             result = mysql_store_result(m_bMysql.get());
 
@@ -71,8 +60,7 @@ void MySQL::operateMysqlSelect(const char *Mysql_Sentence)
 
             // 字段
             MYSQL_FIELD *field = NULL;
-            for (unsigned int i = 0; i < fields; i++)
-            {
+            for (unsigned int i = 0; i < fields; i++) {
                 field = mysql_fetch_field_direct(result, i);
                 std::cout << field->name << "\t\t";
             }
@@ -80,16 +68,11 @@ void MySQL::operateMysqlSelect(const char *Mysql_Sentence)
 
             // 一行行输出信息
             MYSQL_ROW row = NULL;
-            while ((row = mysql_fetch_row(result)) != NULL)
-            {
-                for (unsigned int i = 0; i < fields; ++i)
-                {
-                    if (row[i] != NULL)
-                    {
+            while ((row = mysql_fetch_row(result)) != NULL) {
+                for (unsigned int i = 0; i < fields; ++i) {
+                    if (row[i] != NULL) {
                         std::cout << row[i] << "\t\t";
-                    }
-                    else
-                    {
+                    } else {
                         std::cout << "null"
                                   << "\t\t";
                     }
@@ -98,9 +81,7 @@ void MySQL::operateMysqlSelect(const char *Mysql_Sentence)
             }
             mysql_free_result(result);
         }
-    }
-    else
-    {
+    } else {
         std::cout << "Operate_Mysql Select Failed" << std::endl;
         std::cout << mysql_error(m_bMysql.get()) << std::endl;
     }
@@ -108,19 +89,19 @@ void MySQL::operateMysqlSelect(const char *Mysql_Sentence)
 
 void MySQL::operateMysqlQuery(const char *Mysql_Sentence)
 {
-    if (0 == mysql_query(m_bMysql.get(), Mysql_Sentence))
-    {
+    if (0 == mysql_query(m_bMysql.get(), Mysql_Sentence)) {
         std::cout << "Operate_Mysql Query Success" << std::endl;
         // std::cout << "Query:" << mysql_affected_rows(m_bMysql.get()) << std::endl;
-    }
-    else
-    {
+    } else {
         std::cout << "Operate_Mysql Query Failed" << std::endl;
         std::cout << mysql_error(m_bMysql.get()) << std::endl;
     }
 }
 
-void MySQL::disconnectToMysql()
-{
+void MySQL::disconnectToMysql() {
     mysql_close(m_bMysql.get());
+}
+
+void MySQL::resetConn() {
+    mysql_reset_connection(m_bMysql.get());// 恢复到刚连接时的状态
 }

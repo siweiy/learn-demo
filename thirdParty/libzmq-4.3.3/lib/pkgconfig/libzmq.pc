@@ -1,0 +1,12 @@
+prefix=/home/ysw/transplant/libzmq-4.3.3/build/libzmq-4.3.3
+exec_prefix=/home/ysw/transplant/libzmq-4.3.3/build/libzmq-4.3.3
+libdir=/home/ysw/transplant/libzmq-4.3.3/build/libzmq-4.3.3/lib
+includedir=/home/ysw/transplant/libzmq-4.3.3/build/libzmq-4.3.3/include
+
+Name: libzmq
+Description: 0MQ c++ library
+Version: 4.3.3
+Libs: -L${libdir} -lzmq
+Libs.private: -lstdc++  -lsodium -lrt
+Requires.private: 
+Cflags: -I${includedir} 

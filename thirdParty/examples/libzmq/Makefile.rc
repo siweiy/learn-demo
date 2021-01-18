@@ -1,0 +1,26 @@
+CC = gcc
+CXX = g++
+
+SRCS     := $(wildcard *.cpp)
+OBJS     := $(patsubst %.cpp, %.o, $(SRCS))
+TARGETS  := $(SRCS:%.cpp=%)
+
+INCLUDE := -I$(PWD)/../../../libzmq-4.3.3/include
+LIB_PATH := -L$(PWD)/../../../libzmq-4.3.3/lib
+LIB_LINK := -lzmq
+CFLAGS := -Wall -std=c++11
+
+all:$(TARGETS)
+$(TARGETS):%:%.o
+	$(CXX) $^ -o $@ $(INCLUDE) $(LIB_PATH) $(LIB_LINK) $(CFLAGS)
+	# @rm -rf $(OBJS)
+
+%.o:%.cpp
+	$(CXX) -c $< -o $@ $(CFLAGS) $(INCLUDE)
+
+.PHONY: clean
+clean:
+	@rm -rf $(TARGETS) $(OBJS)
+
+
+

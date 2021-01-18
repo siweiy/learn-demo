@@ -1,7 +1,7 @@
 #include "MySQL.h"
 
-int main()
-{
+int main() {
+
     MySQL_Info info;
     info.user = "root";
     info.pswd = "123456";
@@ -10,10 +10,8 @@ int main()
     info.port = 3306;
 
     MySQL Mysql(info);
-    Mysql.initMysqlInfo();
 
-    if (Mysql.connectToMysql())
-    {
+    if (Mysql.connectToMysql()) {
         Mysql.operateMysqlQuery("create table if not exists \
                                    test_table(id int(4), name varchar(20) \
                                    character set gb2312 collate gb2312_chinese_ci)");
@@ -21,7 +19,7 @@ int main()
         Mysql.operateMysqlQuery("insert into test_table \
                                     values(1, 'aaa'), (2, 'bbb'), (3, 'ccc')");
 
-        Mysql.operateMysqlQuery("insert into test_table(id) values(11), (22), (33)");
+        Mysql.operateMysqlQuery("insert ignore into test_table(id) values(11), (22), (33)");
 
         Mysql.operateMysqlSelect("select * from test_table where id=22 lock in share mode");
 
@@ -34,9 +32,10 @@ int main()
         Mysql.operateMysqlQuery("delete from re_test_table where  id=2"); //删除表中的特定条件的记录
 
         Mysql.operateMysqlQuery("truncate table re_test_table"); //删除表中的所有数据记录，清空表
-        // Mysql.Operate_Mysql_Modify("delete from test_table"); //删除表中的所有数据记录，清空表
+        // Mysql.operateMysqlQuery("delete from test_table"); //删除表中的所有数据记录，清空表
 
         Mysql.operateMysqlQuery("drop table re_test_table"); //删除表
+        Mysql.resetConn();
 
         Mysql.disconnectToMysql();
     }
